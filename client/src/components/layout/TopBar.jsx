@@ -5,7 +5,7 @@ import axios from '../../api/axios';
 import { useAuth, useSocket } from '../../hooks';
 import Input from '../ui/Input';
 import Button from '../ui/Button';
-import beepSound from '../../assets/beep.mp3';
+import notificationSound from '../../assets/Notification.mp3';
 
 const TopBar = ({ toggleSidebar }) => {
   const { user } = useAuth();
@@ -27,7 +27,7 @@ const TopBar = ({ toggleSidebar }) => {
 
   // Pre-load audio on mount
   useEffect(() => {
-    audioRef.current = new Audio(beepSound);
+    audioRef.current = new Audio(notificationSound);
     audioRef.current.volume = 0.6;
     audioRef.current.load();
     fetchUnreadCount();

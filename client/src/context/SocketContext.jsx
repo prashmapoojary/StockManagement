@@ -3,6 +3,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { io } from 'socket.io-client';
 import { useAuth } from './AuthContext';
 import toast from 'react-hot-toast';
+import notificationSound from '../assets/Notification.mp3';
 
 const SocketContext = createContext();
 
@@ -22,7 +23,7 @@ export const SocketProvider = ({ children }) => {
 
       newSocket.on('notification:new', (data) => {
         // Play notification sound
-        const audio = new Audio('https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3');
+        const audio = new Audio(notificationSound);
         audio.play().catch(e => console.log('Audio play failed:', e));
 
         // Invalidate notifications query
