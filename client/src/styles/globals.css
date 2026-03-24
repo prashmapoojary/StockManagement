@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Libre Baskerville', serif;
+  --font-serif: 'Lora', serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+
+  --color-background: oklch(0.9582 0.0152 90.2357); /* warm parchment */
+  --color-foreground: oklch(0.3760 0.0225 64.3434); /* dark walnut */
+  --color-card: oklch(0.9914 0.0098 87.4695); /* off-white cream */
+  --color-card-foreground: oklch(0.3760 0.0225 64.3434);
+  --color-primary: oklch(0.6180 0.0778 65.5444); /* amber-brown */
+  --color-primary-foreground: oklch(1.0000 0 0); /* white */
+  --color-secondary: oklch(0.8846 0.0302 85.5655); /* light sand */
+  --color-muted: oklch(0.9239 0.0190 83.0636); /* muted warm gray */
+  --color-muted-foreground: oklch(0.5391 0.0387 71.1655);
+  --color-accent: oklch(0.8348 0.0426 88.8064); /* soft gold */
+  --color-destructive: oklch(0.5471 0.1438 32.9149); /* deep red */
+  --color-border: oklch(0.8606 0.0321 84.5881); /* warm tan */
+  --color-ring: oklch(0.6180 0.0778 65.5444);
+}
+
+/* Custom properties for the shadow system */
+:root {
+  --shadow-color: 28 13% 20%;
+}
+
+.dark {
+  --color-background: oklch(0.2747 0.0139 57.6523); /* deep espresso */
+  --color-foreground: oklch(0.9239 0.0190 83.0636);
+  --color-card: oklch(0.3237 0.0155 59.0603); /* dark roast */
+  --color-primary: oklch(0.7264 0.0581 66.6967); /* warm gold */
+  --color-muted: oklch(0.2939 0.0125 62.1298);
+  --color-accent: oklch(0.4186 0.0281 56.3404);
+  --color-border: oklch(0.3795 0.0181 57.1280);
+}
+
+body {
+  @apply bg-background text-foreground;
+  font-family: var(--font-serif);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-sans);
+}
+
+code, .mono {
+  font-family: var(--font-mono);
+}
+
+@keyframes bell-shake {
+  0%   { transform: rotate(0deg);    }
+  10%  { transform: rotate(15deg);   }
+  20%  { transform: rotate(-12deg);  }
+  30%  { transform: rotate(10deg);   }
+  40%  { transform: rotate(-8deg);   }
+  50%  { transform: rotate(6deg);    }
+  60%  { transform: rotate(-4deg);   }
+  70%  { transform: rotate(2deg);    }
+  80%  { transform: rotate(-1deg);   }
+  90%  { transform: rotate(1deg);    }
+  100% { transform: rotate(0deg);    }
+}
+
+.bell-shake {
+  animation: bell-shake 0.8s ease-in-out;
+  transform-origin: top center;
+  display: inline-block;
+}
