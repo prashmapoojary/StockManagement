@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Plus, Search, MoreVertical, Edit, Trash2, ArrowRightLeft } from 'lucide-react';
-import axios from 'axios';
+import axios from '../api/axios';
 import Table from '../components/ui/Table';
 import Badge from '../components/ui/Badge';
 import Button from '../components/ui/Button';
@@ -38,7 +38,7 @@ const Inventory = () => {
   useEffect(() => {
     const loadCategories = async () => {
       try {
-        const res = await axios.get('/api/categories');
+        const res = await axios.get('/categories');
         setCategories(res.data.data || []);
       } catch (err) {
         console.error('Failed to load categories');
@@ -64,7 +64,7 @@ const Inventory = () => {
       if (!category) params.delete('category');
       if (!status) params.delete('status');
 
-      const res = await axios.get(`/api/products?${params.toString()}`);
+      const res = await axios.get(`/products?${params.toString()}`);
       const body = res.data.data;
 
       setProducts(body.products || []);

@@ -38,13 +38,17 @@ const Notifications = () => {
   });
 
   const handleViewProduct = (n) => {
-    // Mark as read first if unread
-    if (!n.is_read) {
-      markReadMutation.mutate(n.id);
-    }
-    // Navigate to product detail
+    console.log('Navigating to product:', n.product_id);
+    
+    // Navigate first
     if (n.product_id) {
       navigate(`/inventory/${n.product_id}`);
+      window.scrollTo(0, 0);
+    }
+    
+    // Mark as read in background
+    if (!n.is_read) {
+      markReadMutation.mutate(n.id);
     }
   };
 

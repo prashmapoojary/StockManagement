@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { Menu, Search, Bell, User } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import axios from '../../api/axios';
 import { useAuth, useSocket } from '../../hooks';
 import Input from '../ui/Input';
 import Button from '../ui/Button';
@@ -18,7 +18,7 @@ const TopBar = ({ toggleSidebar }) => {
   // Fetch initial unread count
   const fetchUnreadCount = useCallback(async () => {
     try {
-      const res = await axios.get('/api/notifications?is_read=false');
+      const res = await axios.get('/notifications?is_read=false');
       setUnreadCount(res.data.data.unreadCount || 0);
     } catch (err) {
       console.error('Unread count error:', err);
