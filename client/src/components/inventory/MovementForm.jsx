@@ -36,7 +36,7 @@ const MovementForm = ({ onClose, initialProductId }) => {
     queryFn: () => getProducts({ limit: 100 }),
   });
 
-  const products = productsData?.data?.data || [];
+  const products = productsData?.data?.data?.products || [];
 
   const mutation = useMutation({
     mutationFn: (data) => {
