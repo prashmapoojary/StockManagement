@@ -203,6 +203,18 @@ const ProductDetail = () => {
           </section>
         </div>
       </div>
+
+      <Modal
+        isOpen={isMovementModalOpen}
+        onClose={() => setIsMovementModalOpen(false)}
+        title="Record Stock Movement"
+      >
+        <MovementForm 
+          onClose={() => setIsMovementModalOpen(false)} 
+          initialProductId={id}
+          initialType={movementType}
+        />
+      </Modal>
     </div>
   );
 };

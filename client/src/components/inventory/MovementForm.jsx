@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -17,17 +17,25 @@ const movementSchema = z.object({
   reason: z.string().min(3, 'Reason is required'),
 });
 
-const MovementForm = ({ onClose, initialProductId }) => {
+const MovementForm = ({ onClose, initialProductId, initialType = 'IN' }) => {
   const queryClient = useQueryClient();
 
-  const { register, handleSubmit, watch, formState: { errors } } = useForm({
+  const { register, handleSubmit, watch, reset, formState: { errors } } = useForm({
     resolver: zodResolver(movementSchema),
     defaultValues: {
       product_id: initialProductId || '',
-      type: 'IN',
+      type: initialType,
       quantity: 1,
     },
   });
+
+  useEffect(() => {
+    reset({
+      product_id: initialProductId || '',
+      type: initialType,
+      quantity: 1,
+    });
+  }, [initialProductId, initialType, reset]);
 
   const selectedType = watch('type');
 

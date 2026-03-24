@@ -238,6 +238,7 @@ const Dashboard = () => {
         <MovementForm 
           onClose={() => setIsRestockModalOpen(false)} 
           initialProductId={selectedProductId}
+          initialType="IN"
         />
       </Modal>
     </div>
