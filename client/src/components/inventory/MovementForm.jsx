@@ -48,6 +48,8 @@ const MovementForm = ({ onClose, initialProductId }) => {
       queryClient.invalidateQueries(['movements']);
       queryClient.invalidateQueries(['products']);
       queryClient.invalidateQueries(['dashboard-stats']);
+      queryClient.invalidateQueries(['low-stock']);
+      queryClient.invalidateQueries(['product']);
       toast.success('Movement recorded successfully');
       onClose?.();
     },

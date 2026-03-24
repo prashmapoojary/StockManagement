@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useParams, Link } from 'react-router-dom';
 import { 
@@ -18,10 +18,14 @@ import { getProductMovements } from '../api/stockApi';
 import Table from '../components/ui/Table';
 import Badge from '../components/ui/Badge';
 import Button from '../components/ui/Button';
+import Modal from '../components/ui/Modal';
+import MovementForm from '../components/inventory/MovementForm';
 import { clsx } from 'clsx';
 
 const ProductDetail = () => {
   const { id } = useParams();
+  const [isMovementModalOpen, setIsMovementModalOpen] = useState(false);
+  const [movementType, setMovementType] = useState('IN');
 
   const { data: productRes, isLoading: productLoading } = useQuery({
     queryKey: ['product', id],
@@ -88,6 +92,27 @@ const ProductDetail = () => {
             </div>
           </section>
 
+          <section className="bg-muted/30 border border-border p-6 rounded-[0.25rem] font-serif">
+            <h4 className="font-sans font-bold flex items-center gap-2 mb-4">
+              <Clock className="w-4 h-4 text-primary" />
+              Quick Info
+            </h4>
+            <div className="space-y-4 text-sm">
+              <div className="flex justify-between items-center pb-2 border-b border-border/50">
+                <span className="text-muted-foreground">Manufacturer</span>
+                <span className="font-bold">Original Equipment</span>
+              </div>
+              <div className="flex justify-between items-center pb-2 border-b border-border/50">
+                <span className="text-muted-foreground">Lead Time</span>
+                <span className="font-bold">4-7 business days</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-muted-foreground">Taxable Item</span>
+                <span className="font-bold">Yes (GST 18%)</span>
+              </div>
+            </div>
+          </section>
+
           <section className="bg-card border border-border rounded-[0.25rem] shadow-sm overflow-hidden">
             <div className="p-4 border-b border-border bg-muted/20">
               <h3 className="font-sans font-bold flex items-center gap-2">
@@ -144,17 +169,28 @@ const ProductDetail = () => {
                <p>Warehouse: {product?.warehouse_name}</p>
              </div>
 
-             <div className="grid grid-cols-1 gap-3">
-               <Button className="font-bold flex items-center justify-center gap-2 h-12">
-                 <ArrowUpRight className="w-5 h-5" /> Stock In
-               </Button>
-               <Button variant="outline" className="font-bold flex items-center justify-center gap-2 h-12">
-                 <ArrowDownRight className="w-5 h-5" /> Stock Out
-               </Button>
-               <Button variant="secondary" className="font-bold flex items-center justify-center gap-2 h-12 text-destructive">
-                 <TrendingDown className="w-5 h-5" /> Manual Adjustment
-               </Button>
-             </div>
+              <div className="grid grid-cols-1 gap-3">
+                <Button 
+                  className="font-bold flex items-center justify-center gap-2 h-12"
+                  onClick={() => { setMovementType('IN'); setIsMovementModalOpen(true); }}
+                >
+                  <ArrowUpRight className="w-5 h-5" /> Stock In
+                </Button>
+                <Button 
+                  variant="outline" 
+                  className="font-bold flex items-center justify-center gap-2 h-12"
+                  onClick={() => { setMovementType('OUT'); setIsMovementModalOpen(true); }}
+                >
+                  <ArrowDownRight className="w-5 h-5" /> Stock Out
+                </Button>
+                <Button 
+                  variant="secondary" 
+                  className="font-bold flex items-center justify-center gap-2 h-12 text-destructive"
+                  onClick={() => { setMovementType('ADJUSTMENT'); setIsMovementModalOpen(true); }}
+                >
+                  <TrendingDown className="w-5 h-5" /> Manual Adjustment
+                </Button>
+              </div>
           </section>
 
           <section className="bg-muted/30 border border-border p-6 rounded-[0.25rem] font-serif">

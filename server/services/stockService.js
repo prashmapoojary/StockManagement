@@ -53,9 +53,9 @@ const updateStock = async ({ productId, type, quantity, reason, performedBy }) =
 
     // 4. Real-time notifications (Socket.io)
     const io = getIO();
-    const warehouseRoom = `warehouse_${product.warehouse_id}`;
-
-    io.to(warehouseRoom).emit('stock:updated', {
+    
+    // Emit globally for the demo/resume project to ensure visibility
+    io.emit('stock:updated', {
       productId: product.id,
       productName: product.name,
       newQty,
@@ -63,16 +63,16 @@ const updateStock = async ({ productId, type, quantity, reason, performedBy }) =
       type,
     });
 
-    // Check for low stock alerts (Trigger in DB handles the insert, but we can emit)
+    // Check for low stock alerts
     if (newQty < product.min_threshold && previousQty >= product.min_threshold) {
-      io.to(warehouseRoom).emit('stock:low', {
+      io.emit('stock:low', {
         productId: product.id,
         productName: product.name,
         currentQty: newQty,
         minThreshold: product.min_threshold,
       });
     } else if (newQty === 0 && previousQty > 0) {
-      io.to(warehouseRoom).emit('stock:out', {
+      io.emit('stock:out', {
         productId: product.id,
         productName: product.name,
       });
