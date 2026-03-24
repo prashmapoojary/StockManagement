@@ -9,6 +9,7 @@ import {
   Briefcase, 
   DollarSign, 
   ArrowDownRight,
+  ArrowUpRight,
   TrendingDown,
   Clock
 } from 'lucide-react';
